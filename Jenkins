@@ -28,7 +28,7 @@ pipeline {
        }
      stage('Artifact Upload to Nexus') {
             steps {
-               nexusArtifactUploader artifacts: [[artifactId: 'rupesh', classifier: '', file: '.war', type: '']], credentialsId: 'nexus', groupId: 'rupesh', nexusUrl: '13.234.18.211:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'test', version: '1.0-SNAPSHOT'
+               nexusArtifactUploader artifacts: [[artifactId: 'rupesh', classifier: '', file: '.jar', type: '']], credentialsId: 'nexus', groupId: 'rupesh', nexusUrl: '13.234.18.211:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'test', version: '1.0-SNAPSHOT'
             }
         }
     }
