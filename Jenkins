@@ -4,7 +4,9 @@ pipeline {
            maven "MAVEN_HOME"
    }
   environment {
-        NEXUS_VERSION = '3.63.0-01'
+        NEXUS_VERSION = "3.63.0-01"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "13.234.18.211:8081"
     }
     stages {
         stage('checkout') {
@@ -27,9 +29,9 @@ pipeline {
      stage('Artifact Upload to Nexus') {
             steps {
                 nexusArtifactUploader({
-                    //nexusVersion: '${NEXUS_VERSION}', 
-                    protocol: 'http',       
-                    nexusUrl: '13.234.18.211:8081',  
+                    //nexusVersion: NEXUS_VERSION, 
+                    protocol: NEXUS_PROTOCOL,       
+                    nexusUrl: NEXUS_URL,  
                     groupId: 'pom.com.rupesh',  
                     version: 'pom.1.0-SNAPSHOT',        
                     repository: 'test', 
