@@ -3,6 +3,9 @@ pipeline {
     tools {
            maven "MAVEN_HOME"
    }
+  environment {
+        NEXUS_VERSION = '3.63.0-01'
+    }
     stages {
         stage('checkout') {
             steps {
@@ -24,7 +27,7 @@ pipeline {
      stage('Artifact Upload to Nexus') {
             steps {
                 nexusArtifactUploader({
-                    nexusVersion: 'nexus3', 
+                    nexusVersion: '${NEXUS_VERSION}', 
                     protocol: 'http',       
                     nexusUrl: '13.234.18.211:8081',  
                     groupId: 'pom.com.rupesh',  
