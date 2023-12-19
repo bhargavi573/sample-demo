@@ -16,7 +16,7 @@ pipeline {
         }
      stage('build') {
             steps {
-                sh "mvn clean install"
+                sh "mvn clean package"
             }
         }
      stage('Sonar-test') {
@@ -28,7 +28,23 @@ pipeline {
        }
      stage('Artifact Upload to Nexus') {
             steps {
-               nexusArtifactUploader artifacts: [[artifactId: 'rupesh', classifier: '', file: '.*', type: '']], credentialsId: 'nexus', groupId: 'rupesh', nexusUrl: '13.234.18.211:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'test', version: '1.0-SNAPSHOT'
+                 script{
+                  def mavenPom =readMavenPom file: 'pom.xml'
+                  nexusArtifactUploader artifacts: [
+                  [  
+                      artifactId: 'rupesh', 
+                      classifier: '', 
+                      file: "target/rupesh-${mavenPom.version}.jar", 
+                      type: 'war'
+                 ]
+               ], 
+               credentialsId: 'nexus', 
+               groupId: 'rupesh', 
+               nexusUrl: '13.234.18.211:8081', 
+               nexusVersion: 'nexus3', 
+               protocol: 'http', 
+               repository: 'test', 
+               version: "${mavenPom.version}"
             }
         }
     }
