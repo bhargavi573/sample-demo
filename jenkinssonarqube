@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the source code from the GitHub repository
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Build your project with Maven
+                sh 'mvn clean package'  // Adjust Maven command based on your project
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                // Execute SonarQube analysis
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh 'mvn sonar:sonar'  // Use SonarQube Scanner to perform analysis
+                }
+            }
+        }
+        
+        stage('Artifact Upload to Nexus') {
+            steps {
+                // Upload the artifact (e.g., WAR/JAR) to Nexus repository
+                nexusArtifactUploader({
+                    nexusVersion: 'nexus3', // Specify Nexus version
+                    protocol: 'http',        // Use 'https' for secure connection
+                    nexusUrl: 'http://nexus-url/',  // Replace with your Nexus URL
+                    groupId: 'com.example',  // Maven group ID
+                    version: '1.0.0',        // Version of the artifact
+                    repository: 'maven-releases', // Nexus repository to upload
+                    credentialsId: 'nexus-credentials', // Jenkins credentials for Nexus
+                    artifacts: [
+                        [artifactId: 'your-artifact', file: 'target/*.war'] // Replace with your artifact details
+                    ]
+                })
+            }
+        }
+    }
+}
