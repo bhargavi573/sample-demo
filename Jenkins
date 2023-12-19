@@ -28,14 +28,14 @@ pipeline {
        }
      stage('Artifact Upload to Nexus') {
             steps {
-                 script{
-                  def mavenPom =readMavenPom file: 'pom.xml'
+                
+                  //def mavenPom =readMavenPom file: 'pom.xml'
                   nexusArtifactUploader artifacts: [
                   [  
                       artifactId: 'rupesh', 
                       classifier: '', 
-                      file: "target/rupesh-${mavenPom.version}.jar", 
-                      type: 'war'
+                      file: 'target/target/rupesh-1.0-SNAPSHOT.jar', 
+                      type: 'jar'
                  ]
                ], 
                credentialsId: 'nexus', 
@@ -44,8 +44,8 @@ pipeline {
                nexusVersion: 'nexus3', 
                protocol: 'http', 
                repository: 'test', 
-               version: "${mavenPom.version}"
-            }
+               version: '1.0-SNAPSHOT'
+            
         }
     }
   }
