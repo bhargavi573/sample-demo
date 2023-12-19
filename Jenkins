@@ -29,7 +29,7 @@ pipeline {
      stage('Artifact Upload to Nexus') {
             steps {
                 nexusArtifactUploader({
-                    //nexusVersion: NEXUS_VERSION, 
+                    nexusVersion: NEXUS_VERSION, 
                     protocol: NEXUS_PROTOCOL,       
                     nexusUrl: NEXUS_URL,  
                     groupId: 'pom.com.rupesh',  
