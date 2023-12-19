@@ -21,5 +21,21 @@ pipeline {
                 }
             }
        }
-   }
+     stage('Artifact Upload to Nexus') {
+            steps {
+                nexusArtifactUploader({
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http',       
+                    nexusUrl: '13.234.18.211:8081',  
+                    groupId: 'pom.com.rupesh',  
+                    version: 'pom.1.0-SNAPSHOT',        
+                    repository: 'test', 
+                    credentialsId: 'nexus', 
+                    artifacts: [
+                        [artifactId: 'pom.rupesh', file: 'target/*.war'] 
+                    ]
+                })
+            }
+        }
+    }
 }
