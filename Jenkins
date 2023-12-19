@@ -1,10 +1,17 @@
 pipeline {
     agent any
-
+    tool {
+           maven "MAVEN_HOME"
+   }
     stages {
         stage('checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/bhargavi573/sample-demo.git'
+            }
+        }
+     stage('build') {
+            steps {
+                sh "mvn clean install"
             }
         }
     }
