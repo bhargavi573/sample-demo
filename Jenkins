@@ -17,6 +17,7 @@ pipeline {
      stage('build') {
             steps {
                 sh "mvn clean package"
+                sh "ls -l target/"
             }
         }
      stage('Sonar-test') {
