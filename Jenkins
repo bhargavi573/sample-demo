@@ -34,7 +34,7 @@ pipeline {
                   [  
                       artifactId: 'rupesh', 
                       classifier: '', 
-                      file: '/target/*.jar', 
+                      file: '/target/rupesh-1.0-SNAPSHOT.jar', 
                       type: 'jar'
                  ]
                ], 
