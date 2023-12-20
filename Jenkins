@@ -34,7 +34,7 @@ pipeline {
                   [  
                       artifactId: 'rupesh', 
                       classifier: '', 
-                      file: 'target/target/*.jar', 
+                      file: 'target/*.jar', 
                       type: 'jar'
                  ]
                ], 
