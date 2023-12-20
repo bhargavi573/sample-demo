@@ -33,7 +33,7 @@ pipeline {
                 [
                 artifactId: 'rupesh', 
                 classifier: '', 
-                file: 'rupesh-1.0-SNAPSHOT.jar',
+                file: '/home/ec2-user/.jenkins/workspace/devops/target/rupesh-1.0-SNAPSHOT.jar',
                 type: 'jar'
                     ]
                 ],
